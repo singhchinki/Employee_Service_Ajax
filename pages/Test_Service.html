@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Services</title>
+    <script src="../Javascript/Services.js"></script>
+    <style>
+        body{
+            margin: auto;
+        }
+        div{
+            border: 1px solid black;
+            border-radius: 4px;
+            background: rgb(152, 152, 152);
+            padding: 50px;
+            width: 80%;
+            font-size: larger;
+            margin-top: 50px;
+            margin-left: 50px;
+        }
+        h1
+        {
+            margin-left: 40%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Services HTML</h1>
+    <div id="get"></div>
+    <div id="delete"></div>
+    <div id="post"></div>
+    <script>
+        const getElement = document.querySelector("#get");
+        const getURL =  "http://127.0.0.1:3000/employees/1";
+        makePromiseCall("GET", getURL, true)
+            .then(responseText => {
+                getElement.textContent = "Get User Data :" + responseText;
+            })
+            .catch(error => { 
+                getElement.textContent = "Get Error Status: " + JSON.stringify(error); 
+            });
+
+        const deleteElement = document.querySelector("#delete");
+        const deleteURL =  "http://localhost:3000/employees/5";
+        makePromiseCall("DELETE", deleteURL, false)
+            .then(responseText => {
+                deleteElement.textContent = "Delete User Data :" + responseText;
+            })
+            .catch(error => { 
+                getElement.textContent = "Delete Error Status" + JSON.stringify(error); 
+            });
+
+        const postElement = document.querySelector("#post");
+        const postURL =  "http://localhost:3000/employees/";
+        const EmpData = { "name": "Mayuresh", "salary": "25000" };
+        makePromiseCall("POST", postURL, true, EmpData)
+            .then(responseText => {
+                postElement.textContent = "Post User Data :" + responseText;
+            })
+            .catch(error => { 
+                getElement.textContent = "Post Error Status" + JSON.stringify(error); 
+            });
+    </script>
+</body>
+</html>
